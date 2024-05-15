@@ -1,10 +1,10 @@
-public class Livre {
+public class Livre implements Empruntable {
     private String titre;
     private String auteur;
     private String isbn;
-    private Boolean disponible;
+    private boolean disponible;
 
-    public Livre(String titre, String auteur, String isbn, Boolean disponible) {
+    public Livre(String titre, String auteur, String isbn, boolean disponible) {
         this.titre = titre;
         this.auteur = auteur;
         this.isbn = isbn;
@@ -15,31 +15,52 @@ public class Livre {
         return titre;
     }
 
-    public String getAuteur() {
-        return auteur;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public Boolean getDisponible() {
-        return disponible;
-    }
-
     public void setTitre(String titre) {
         this.titre = titre;
+    }
+
+    public String getAuteur() {
+        return auteur;
     }
 
     public void setAuteur(String auteur) {
         this.auteur = auteur;
     }
 
+    public String getIsbn() {
+        return isbn;
+    }
+
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
-    public void setDisponible(Boolean disponible) {
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
         this.disponible = disponible;
+    }
+
+    @Override
+    public void emprunter() {
+        if (disponible) {
+            disponible = false;
+            System.out.println("Le livre '" + titre + "' est maintenant emprunté.");
+        } else {
+            System.out.println("Le livre '" + titre + "' n'est pas disponible pour emprunt.");
+        }
+    }
+
+    @Override
+    public void retourner() {
+        disponible = true;
+        System.out.println("Le livre '" + titre + "' a été retourné et est maintenant disponible.");
+    }
+
+    public void afficherDetails() {
+        System.out.println("Titre: " + getTitre() + ", Auteur: " + getAuteur() + ", ISBN: " + getIsbn()
+                           + ", Disponible: " + (isDisponible() ? "oui" : "non"));
     }
 }
